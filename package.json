@@ -1,0 +1,19 @@
+{
+  "name": "cryptic",
+  "version": "0.0.1",
+  "description": "cryptic web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cdevogel25/Cryptic.git"
+  },
+  "author": "Calvin de Vogel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cdevogel25/Cryptic/issues"
+  },
+  "homepage": "https://github.com/cdevogel25/Cryptic#readme"
+}
