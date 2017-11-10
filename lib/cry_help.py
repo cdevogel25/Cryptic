@@ -1,3 +1,4 @@
 #help.py
 def help(cmd=None):
-    print cmd
+    if cmd[0] == 'price':
+        print 'usage: price [exchange] [crypto] [pair]'

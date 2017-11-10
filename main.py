@@ -3,19 +3,7 @@ import sys
 import requests
 import ast
 import json
-import lib.cry_help
-
-# if len(sys.argv) != 4:
-#     print 'usage: main.py <exchange> <crypto> <pair>'
-#     sys.exit()
-
-exchanges = ['gdax', 'gemini', 'btce']
-cryptos = ['eth', 'btc', 'bch']
-pairs = ['eth', 'btc', 'bch', 'usd']
-
-# exchange = sys.argv[1]
-# crypto = sys.argv[2]
-# pair = sys.argv[3]
+import lib.cry_help, lib.cry_price
 
 base_url = 'https://api.cryptowat.ch/markets/'
 
@@ -33,8 +21,8 @@ base_url = 'https://api.cryptowat.ch/markets/'
 # res_dict = json.loads(json_data)
 # print res_dict['allowance']
 
-def show_price():
-    pass
+def cry_price(cmd):
+    lib.cry_price.price(cmd)
 
 def main():
     exit = False
@@ -48,9 +36,10 @@ def main():
                 lib.cry_help.help()
         elif cmd[0] == 'price':
             if len(cmd) < 4:
-                print ''
-            cry_price(cmd[1], cmd[2], cmd[3])
-        elif cmd[0] == 'exit':
+                lib.cry_help.help([cmd[0]])
+                continue
+            cry_price(cmd[1:])
+        elif cmd[0] == 'exit' or cmd[0] == 'quit':
             exit = True
         else:
             print 'invalid command...'
