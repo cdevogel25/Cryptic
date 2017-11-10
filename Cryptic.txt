@@ -1,0 +1,3 @@
+TODO:
+	1. Start with the command line. Every 8 seconds, update the price and print.
+		- support ETH/BTC/USD/BCH
