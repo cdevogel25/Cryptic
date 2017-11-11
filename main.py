@@ -31,7 +31,7 @@ def cry_price(cmd):
 def main():
     exit = False
     while not exit:
-        cmd_s = raw_input('cryptic ~ ')
+        cmd_s = input('cryptic ~ ')
         cmd = cmd_s.split(' ')
         if cmd[0] == 'help':
             if len(cmd) > 1:
@@ -50,6 +50,6 @@ def main():
         elif cmd[0] == 'show':
             show()
         else:
-            print 'invalid command...'
+            print('invalid command...')
 
 main()

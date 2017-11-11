@@ -4,14 +4,14 @@ import options
 def show(cmd=None):
     if cmd == None:
         for key in options.exchanges:
-            print key + ':'
-            print '  cryptos:'
-            print '    ',
+            print(key + ':')
+            print('  cryptos:')
+            print('    ', end = '')
             for n in options.exchanges[key]['cryptos']:
-                print n,
-            print
-            print '  pairs:'
-            print '    ',
+                print(n + ' ', end = '')
+            print()
+            print('  pairs:')
+            print('    ', end = '')
             for n in options.exchanges[key]['pairs']:
-                print n,
-            print
+                print(n + ' ', end = '')
+            print()
