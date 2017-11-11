@@ -1,3 +1,4 @@
 /api_ref
 /node_modules
 /build
+*.pyc
