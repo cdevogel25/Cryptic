@@ -4,7 +4,8 @@
   "description": "cryptic web app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "babel-node": "babel-node"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/cdevogel25/Cryptic/issues"
   },
-  "homepage": "https://github.com/cdevogel25/Cryptic#readme"
+  "homepage": "https://github.com/cdevogel25/Cryptic#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "dependencies": {
+    "firebase": "^4.6.2"
+  }
 }

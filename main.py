@@ -3,7 +3,11 @@ import sys
 import requests
 import ast
 import json
-import lib.cry_help, lib.cry_price
+import os
+from lib.cry_price import price
+from lib.cry_help import c_help
+from lib.cry_show import show
+
 
 base_url = 'https://api.cryptowat.ch/markets/'
 
@@ -31,16 +35,20 @@ def main():
         cmd = cmd_s.split(' ')
         if cmd[0] == 'help':
             if len(cmd) > 1:
-                lib.cry_help.help(cmd[1:])
+                c_help(cmd[1:])
             else:
-                lib.cry_help.help()
+                c_help()
         elif cmd[0] == 'price':
             if len(cmd) < 4:
-                lib.cry_help.help([cmd[0]])
+                c_help([cmd[0]])
                 continue
-            cry_price(cmd[1:])
+            price(cmd[1:])
+        elif cmd[0] == 'clear':
+            os.system('clear')
         elif cmd[0] == 'exit' or cmd[0] == 'quit':
             exit = True
+        elif cmd[0] == 'show':
+            show()
         else:
             print 'invalid command...'
 
