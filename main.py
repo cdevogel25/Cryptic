@@ -1,15 +1,12 @@
 #main.py
-import sys
-import requests
-import ast
-import json
 import os
+from lib.options import CMD_LIST
 from lib.cry_price import price
 from lib.cry_help import c_help
 from lib.cry_show import show
 
 
-base_url = 'https://api.cryptowat.ch/markets/'
+BASE_URL = 'https://api.cryptowat.ch/markets/'
 
 # if exchange not in exchanges:
 #     print 'exchange not in list'
@@ -25,29 +22,26 @@ base_url = 'https://api.cryptowat.ch/markets/'
 # res_dict = json.loads(json_data)
 # print res_dict['allowance']
 
-def cry_price(cmd):
-    lib.cry_price.price(cmd)
-
 def main():
-    exit = False
-    while not exit:
+    c_exit = False
+    while not c_exit:
         cmd_s = input('cryptic ~ ')
         cmd = cmd_s.split(' ')
-        if cmd[0] == 'help':
+        if cmd[0] == CMD_LIST[0]:
             if len(cmd) > 1:
                 c_help(cmd[1:])
             else:
                 c_help()
-        elif cmd[0] == 'price':
+        elif cmd[0] == CMD_LIST[1]:
             if len(cmd) < 4:
                 c_help([cmd[0]])
                 continue
             price(cmd[1:])
         elif cmd[0] == 'clear':
             os.system('clear')
-        elif cmd[0] == 'exit' or cmd[0] == 'quit':
-            exit = True
-        elif cmd[0] == 'show':
+        elif cmd[0] == CMD_LIST[3]:
+            c_exit = True
+        elif cmd[0] == CMD_LIST[4]:
             show()
         else:
             print('invalid command...')

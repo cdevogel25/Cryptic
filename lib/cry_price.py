@@ -1,34 +1,25 @@
 #cry_price.py
-import requests
 import json
+import requests
+from lib.options import EXCHANGES
 from lib.cry_help import c_help
 
 def price(cmd):
     if len(cmd) < 3:
         c_help(['price'])
-    exchanges = {
-        'gdax': {
-            'cryptos': ['btc', 'eth'],
-            'pairs': ['btc', 'eth', 'usd']
-            },
-        'gemini': {
-            'cryptos': ['eth', 'btc'],
-            'pairs': ['btc', 'eth', 'usd']
-        }
-    }
 
     base_url = 'https://api.cryptowat.ch/markets/'
     exchange = cmd[0]
     crypto = cmd[1]
     pair = cmd[2]
 
-    if exchange not in exchanges.keys():
+    if exchange not in EXCHANGES.keys():
         print('exchange not in list')
         return
-    if crypto not in exchanges[exchange]['cryptos']:
+    if crypto not in EXCHANGES[exchange]['coins']:
         print('crypto not in list')
         return
-    if pair not in exchanges[exchange]['pairs']:
+    if pair not in EXCHANGES[exchange]['pairs']:
         print('pair not in list')
         return
 

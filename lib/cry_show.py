@@ -1,17 +1,17 @@
 #show.py
-import options
+from lib.options import EXCHANGES
 
 def show(cmd=None):
-    if cmd == None:
-        for key in options.exchanges:
+    if cmd is None:
+        for key in EXCHANGES:
             print(key + ':')
-            print('  cryptos:')
-            print('    ', end = '')
-            for n in options.exchanges[key]['cryptos']:
-                print(n + ' ', end = '')
-            print()
+            print('  coin:')
+            out_string = '    '
+            for coin in EXCHANGES[key]['coins']:
+                out_string += coin + ' '
+            print(out_string)
             print('  pairs:')
-            print('    ', end = '')
-            for n in options.exchanges[key]['pairs']:
-                print(n + ' ', end = '')
-            print()
+            out_string = '    '
+            for pair in EXCHANGES[key]['pairs']:
+                out_string += pair + ' '
+            print(out_string)
