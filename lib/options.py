@@ -15,6 +15,10 @@ CMD_LIST = [
     'help',
     'price',
     'clear',
+    'show',
     'exit',
-    'show'
 ]
+
+BASE_URLS = {
+    'price': 'https://api.cryptowat.ch/markets/',
+}

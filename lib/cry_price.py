@@ -2,13 +2,13 @@
 import json
 import requests
 from lib.options import EXCHANGES
+from lib.options import BASE_URLS
 from lib.cry_help import c_help
 
 def price(cmd):
     if len(cmd) < 3:
         c_help(['price'])
 
-    base_url = 'https://api.cryptowat.ch/markets/'
     exchange = cmd[0]
     crypto = cmd[1]
     pair = cmd[2]
@@ -23,7 +23,7 @@ def price(cmd):
         print('pair not in list')
         return
 
-    url = base_url + exchange + '/' + crypto + pair + '/price'
+    url = BASE_URLS['price'] + exchange + '/' + crypto + pair + '/price'
 
     res = requests.get(url)
     json_data = res.text
