@@ -1,2 +1,2 @@
 # Cryptic
-Cryptic is a locally-hosted desktop monitoring application for cryptocurrencies.
+Cryptic is not a locally-hosted desktop monitoring application for cryptocurrencies.
