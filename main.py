@@ -7,8 +7,8 @@ class Cli:
     exchange = None
     c_exit = False
 
-    def __init__(self):
-        self.exchange = Exchange('gdax')
+    def __init__(self, exchange):
+        self.exchange = Exchange(exchange)
 
     def cli(self):
         while not self.c_exit:
@@ -19,10 +19,10 @@ class Cli:
             elif cmd[0] == CMD_LIST[-1]:
                 self.c_exit = True
 
+
+
 # BASE_URL = 'https://api.cryptowat.ch/markets/'
 
-cli = Cli()
-cli.cli()
 
 
 # def main():
