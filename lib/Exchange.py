@@ -1,3 +1,5 @@
+import json
+import requests
 from lib.options import EXCHANGES
 from lib.options import BASE_URLS
 # from lib.cry_help import c_help
@@ -37,6 +39,9 @@ class Exchange:
             return
 
         url = self.base_url + '/' + coin + pair + '/price'
+        res = requests.get(url)
+        res_dict = json.loads(res.text)
+        print(res_dict['result']['price'])
 
 
 
@@ -45,3 +50,4 @@ class Exchange:
 
 GDAX = Exchange('gdax')
 GDAX.show()
+GDAX.price(['eth', 'usd'])
