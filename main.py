@@ -8,20 +8,6 @@ from lib.cry_show import show
 
 BASE_URL = 'https://api.cryptowat.ch/markets/'
 
-# if exchange not in exchanges:
-#     print 'exchange not in list'
-#     sys.exit()
-# if crypto not in cryptos:
-#     print 'currency not supported'
-#     sys.exit()
-
-# url = base_url + exchange + '/' + crypto + pair
-
-# response = requests.get(url)
-# json_data = response.text
-# res_dict = json.loads(json_data)
-# print res_dict['allowance']
-
 def main():
     c_exit = False
     while not c_exit:
@@ -40,9 +26,9 @@ def main():
         elif cmd[0] == 'clear':
             os.system('clear')
         elif cmd[0] == CMD_LIST[3]:
-            c_exit = True
-        elif cmd[0] == CMD_LIST[4]:
             show()
+        elif cmd[0] == CMD_LIST[-1]:
+            c_exit = True
         else:
             print('invalid command...')
 
