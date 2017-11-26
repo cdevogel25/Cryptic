@@ -10,18 +10,33 @@ var config = {
 }
 
 firebase.initializeApp(config)
+let db = firebase.database()
 
-let db = {
-  db: firebase.database(),
-  read_db: (path) => {
-    this.db.ref(path).on('value', (data) => {
-      return data
+class dbException {
+  constructor(message) {
+    this.message = message
+    this.name = 'dbException'
+  }
+  toString() {
+    return this.name + ': "' + this.message + '"'
+  }
+}
+
+class database {
+  constructor() {
+  }
+  readDb(path) {
+    db.ref(path).on('value', (data) => {
+      console.log(data.val())
     })
-  },
-  write_db: (path, payload) => {
-    // will overwrite any data at this location!!
+  }
+  writeDb(path, payload) {
     this.db.ref(path).set(payload)
   }
 }
 
-export {db}
+let dataB = new database()
+console.log(dataB.readDb())
+
+export {database}
+
