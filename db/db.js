@@ -1,5 +1,5 @@
 import {request} from 'https'
-import firebase from 'firebase'
+import firebase, { database } from 'firebase'
 import dataFrame from '../api_ref/example.json'
 
 var config = {
@@ -60,5 +60,21 @@ let newDB = new Database()
 //     console.log('done!')
 //   })
 // }).end()
+
+function apiRequest(reqHost, reqPath) {
+  request({
+    host: reqHost,
+    path: reqPath
+  }, (res) => {
+    var dataStr = ''
+    res.on('data', (data) => {
+      dataStr += data
+    })
+    res.on('end', () => {
+      newDB.writeDB(undefined, JSON.parse(dataStr))
+      console.log('done!')
+    })
+  }).end()
+}
 
 newDB.readDb()
