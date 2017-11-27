@@ -1,4 +1,6 @@
+import {request} from 'https'
 import firebase from 'firebase'
+import dataFrame from '../api_ref/example.json'
 
 var config = {
 	apiKey: "AIzaSyBOO6VOLFovome29KGVwpP1r1HijNbYbX4",
@@ -12,7 +14,7 @@ var config = {
 firebase.initializeApp(config)
 let db = firebase.database()
 
-class dbException {
+class DBException {
   constructor(message) {
     this.message = message
     this.name = 'dbException'
@@ -22,21 +24,41 @@ class dbException {
   }
 }
 
-class database {
+class Database {
   constructor() {
+    // does nothing
   }
   readDb(path) {
-    db.ref(path).on('value', (data) => {
-      console.log(data.val())
+    db.ref(path).on('value', (snapshot) => {
+      console.log(snapshot.val())
     })
   }
-  writeDb(path, payload) {
-    this.db.ref(path).set(payload)
+  overWriteDB(path, payload) {
+    db.ref(path).set(payload)
+  }
+  writeDB(path, payload) {
+    db.ref(path).push().set(payload)
+  }
+  update(data) {
+    return data
   }
 }
 
-let dataB = new database()
-console.log(dataB.readDb())
+let newDB = new Database()
 
-export {database}
+// request({
+//   host: "api.cryptowat.ch",
+//   path: '/markets/gdax/ethusd/summary'
+// }, (res) => {
+//   var dataStr = ''
+//   res.on('data', (data) => {
+//     dataStr += data
+//     console.log(dataStr)
+//   })
+//   res.on('end', () => {
+//     newDB.writeDB(undefined, JSON.parse(dataStr))
+//     console.log('done!')
+//   })
+// }).end()
 
+newDB.readDb()
