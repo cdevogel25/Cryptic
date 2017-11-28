@@ -1,0 +1,27 @@
+{
+    "api": "api.cryptowat.ch",
+    "summary": {
+        "gdax": {
+            "btcusd": "/markets/gdax/btcusd/summary",
+            "ethusd": "/markets/gdax/ethusd/summary"
+        }
+    },
+    "price": {
+        "gdax": {
+            "btcusd": "/markets/gdax/btcusd/price",
+            "ethusd": "/markets/gdax/ethusd/price"
+        }
+    },
+    "trades": {
+        "gdax": {
+            "btcusd": "/markets/gdax/btcusd/trades",
+            "ethusd": "/markets/gdax/ethusd/trades"
+        }
+    },
+    "orderbook": {
+        "gdax": {
+            "btcusd": "/markets/gdax/btcusd/orderbook",
+            "ethusd": "/markets/gdax/ethusd/orderbook"
+        }
+    }
+}

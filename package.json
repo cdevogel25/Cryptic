@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel-node": "babel-node"
+    "bn": "./node_modules/.bin/babel-node"
   },
   "repository": {
     "type": "git",
