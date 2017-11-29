@@ -10,6 +10,8 @@ class Database {
         this.urls = urls
         this.db = firebase.database()
         this.minAllowance = minAllowance
+        this.noUpdate = false
+        this.initTime = Date.now()
     }
     async checkAllowance() {
         var response = await this.readDB('/allowance/remaining').catch((error) => {
@@ -41,11 +43,20 @@ class Database {
     /* TODO: allow specification of location within db for each request
              maybe set so each reqPath is the same as the DB path?
     */
-    apiRequest(reqHost, reqPath, destPath, overwrite) {
+    apiRequest(reqHost, reqPath, overwrite) {
         this.readDB('allowance/remaining').then((allowance) => {
-            if(allowance <= this.minAllowance) {
+            // if noUpdate, check time and set to false or whatever
+            if(this.noUpdate) {
+                if((Date.now() - this.initTime) >= 3600000) {
+                    this.noUpdate = false
+                    this.initTime = Date.now()
+                }
+            }
+            // if allowance remaining is less than minAllowance, set noUpdate to true and continue
+            if((allowance <= this.minAllowance)) {
+                this.noUpdate = true
                 throw new DBException('allowance too low')
-            } else {
+            } else if(!this.noUpdate) {
                 request({
                     host: reqHost,
                     path: reqPath
@@ -77,9 +88,14 @@ class Database {
     }
 }
 
+/*
+TODO: decide what data needs to stay and when
+overwrite rules:
+    price: false,
+    orderbook: true
+    orders: true
+    summary: true
+*/
+
 const DB = new Database(urls, config, 2000000)
-try {
-    DB.apiRequest(DB.urls.api, DB.urls.price.gdax.ethusd, '/', false)
-} catch (DBException) {
-    console.log(DBException.toString())
-}
+export { DB }
