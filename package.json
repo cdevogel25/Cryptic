@@ -23,6 +23,7 @@
     "babel-preset-env": "^1.6.1"
   },
   "dependencies": {
-    "firebase": "^4.6.2"
+    "firebase": "^4.6.2",
+    "gdax": "github:Coinbase/gdax-node"
   }
 }

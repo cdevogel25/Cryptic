@@ -23,5 +23,22 @@
             "btcusd": "/markets/gdax/btcusd/orderbook",
             "ethusd": "/markets/gdax/ethusd/orderbook"
         }
+    },
+    "rules": {
+        "price": false,
+        "summary": true,
+        "trades": true,
+        "orderbook": true
+
+    },
+    "gdax_api": {
+        "url": "api.gdax.com",
+        "tickers": {
+            "ethusd": "/products/eth-usd/ticker",
+            "btcusd": "/products/btc-usd/ticker"
+        },
+        "trades": {
+            "ethusd": ""
+        }
     }
 }
