@@ -19,11 +19,9 @@ overwrite rules:
 */
 
 class Database {
-    constructor(config, type) {
+    constructor(config) {
         firebase.initializeApp(config)
-        this.client = new PublicClient(type)
         this.db = firebase.database()
-        this.initTime = Date.now()
     }
     readDB(path) {
         return new Promise((resolve, reject) => {
@@ -43,11 +41,28 @@ class Database {
             this.db.ref(path).push().set(payload)
         }
     }
-    async apiRequest(overwrite) {
-        this.client.getProductTicker().then((data) => {
-            console.log(data)
+    async debugRead(path) {
+        var response = await this.readDB(path).catch((error) => {
+            console.log(error)
+            return null
+        })
+        if(response != null) {
+            console.log(response)
+        }
+    }
+}
+
+class ETHHandler extends Database {
+    constructor(dbConfig) {
+        super(dbConfig)
+        this.client = new PublicClient(config.types.eth.usd)
+    }
+    tickerRequest() {
+        this.client.getProductTicker().then(data => {
+            this.writeDB('/price', data, false)
         })
     }
 }
 
-const DB = new Database(config.firebase, config.types.eth.usd)
+const ETH = new ETHHandler(config.firebase)
+ETH.tickerRequest()
