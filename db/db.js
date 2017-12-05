@@ -1,12 +1,9 @@
-import { PublicClient } from 'gdax'
 import { request } from 'https'
 import firebase, { database } from 'firebase'
 import urls from '../lib/urls.json'
 import config from '../lib/config.json'
 import { DBException } from '../lib/exceptions.js'
-import 'ws'
-import {clearInterval} from 'timers'
-import {EventEmitter} from 'events'
+import { Listener } from './Listener.js'
 
 /*
 TODO: decide what data needs to stay and when
@@ -44,6 +41,11 @@ class Database {
             this.db.ref(path).push().set(payload)
         }
     }
+    //TODO: listen to stream, update price ever 1s
+    listen(stream) {
+        // i dunno if this is even good. probably better to just
+        // stick with the stream and forget the database
+    }
     async debugRead(path) {
         var response = await this.readDB(path).catch((error) => {
             console.log(error)
@@ -55,18 +57,6 @@ class Database {
     }
 }
 
-// this is stupid. don't give each one a database, just stick with the one you've got
-class ETHHandler extends Database {
-    constructor(dbConfig) {
-        super(dbConfig)
-        this.client = new PublicClient(config.types.eth.usd)
-    }
-    tickerRequest() {
-        this.client.getProductTicker().then(data => {
-            this.writeDB('/price', data, false)
-        })
-    }
-}
-
-// const ETH = new ETHHandler(config.firebase)
-// ETH.tickerRequest()
+let listener = new Listener(['ETH-USD'])
+let db = new Database(config.firebase)
+db.listen(listener)

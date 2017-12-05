@@ -62,7 +62,10 @@ class Listener extends EventEmitter {
 
     // TODO: Modify so this function also sends info to database every second.
     onMessage(data) {
-        this.emit('message', JSON.parse(data))
+        var payload = JSON.parse(data)
+        if(payload.reason === 'filled') {
+            this.emit('message', payload)
+        }
     }
 
     onError(err) {
@@ -77,13 +80,3 @@ class Listener extends EventEmitter {
 }
 
 export {Listener}
-
-let listener = new Listener()
-listener.on('message', data => {
-    if(data.reason === 'filled' && data.price != undefined) {
-        console.log({
-            price: data.price,
-            side: data.side
-        })
-    } 
-})
