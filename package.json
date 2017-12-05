@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "firebase": "^4.6.2",
-    "gdax": "github:Coinbase/gdax-node"
+    "gdax": "github:Coinbase/gdax-node",
+    "ws": "^3.3.2"
   }
 }

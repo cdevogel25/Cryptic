@@ -21,64 +21,6 @@ overwrite rules:
     currently: building for public api, eventually for private api
 */
 
-class Listener extends EventEmitter {
-    constructor(productIDs) {
-        super()
-        this.productIDs = productIDs
-        this.websocketURI = urls.ws-uri
-        this.connect()
-    }
-    connect() {
-        if(this.socket) {
-            clearInterval(this.pinger)
-            this.socket.close()
-        }
-        this.socket = new WebsocketClient(this.websocketURI)
-        this.socket.on('message', this.onMessage.bind(this))
-        this.socket.on('open', this.onOpen.bind(this))
-        this.socket.on('close', this.onClose.bind(this))
-        this.socket.on('error', this.onError.bind(this))
-    }
-    disconnect() {
-        clearInterval(this.pinger)
-
-        if(!this.socket) {
-            throw new Error('could not disconnect, not connected')
-        }
-        this.socket.close()
-        this.socket = null
-    }
-    onOpen() {
-        this.emit('open')
-        this.socket.send(JSON.stringify({
-            type: 'subscribe',
-            product_ids: this.productIDs
-        }))
-        this.pinger = setInterval(() => {
-            if(this.socket) {
-                this.socket.ping('keepalive')
-            }
-        }, 30000)
-    }
-    onClose() {
-        clearInterval(this.pinger)
-        this.socket = null
-        this.emit('close')
-    }
-    onMessage(data) {
-        this.emit('message', JSON.parse(data))
-    }
-    onError(err) {
-        if(!err) {
-            return
-        }
-        if(err.message === 'unexpected server response (429)') {
-            throw new Error('too fast. throttling')
-        }
-        this.emit('error', err)
-    }
-}
-
 class Database {
     constructor(config) {
         firebase.initializeApp(config)
@@ -113,6 +55,7 @@ class Database {
     }
 }
 
+// this is stupid. don't give each one a database, just stick with the one you've got
 class ETHHandler extends Database {
     constructor(dbConfig) {
         super(dbConfig)
@@ -125,5 +68,5 @@ class ETHHandler extends Database {
     }
 }
 
-const ETH = new ETHHandler(config.firebase)
-ETH.tickerRequest()
+// const ETH = new ETHHandler(config.firebase)
+// ETH.tickerRequest()

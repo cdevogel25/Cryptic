@@ -22,7 +22,7 @@ class WebsocketClient extends EventEmitter {
                 clearInterval(this.pinger)
                 this.socket.close()
             }
-            this.socket = new WebsocketClient(this.websocketURI)
+            this.socket = new Websocket(this.websocketURI)
             this.socket.on('message', this.onMessage.bind(this))
             this.socket.on('open', this.onOpen.bind(this))
             this.socket.on('close', this.onClose.bind(this))
