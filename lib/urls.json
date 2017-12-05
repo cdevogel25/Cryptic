@@ -40,5 +40,6 @@
         "trades": {
             "ethusd": ""
         }
-    }
+    },
+    "ws-uri": "wss://ws-feed.gdax.com"
 }
